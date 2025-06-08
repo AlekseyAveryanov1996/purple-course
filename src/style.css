@@ -24,4 +24,12 @@ body {
   display: grid;
   place-content: center;
   min-height: 100dvh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  padding: 0 66px;
+  margin-left: auto;
+  margin-right: auto;
 }
