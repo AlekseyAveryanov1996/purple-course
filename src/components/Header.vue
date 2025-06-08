@@ -1,12 +1,12 @@
 <script setup>
-  import Scope from './Scope.vue'
+  import Scope from './Score.vue'
 </script>
 
 <template>
   <header class="header">
     <div class="container header__container">
       <div class="header__logo">Запомни слово</div>
-      <Scope scopeValue='10' />
+      <Scope scopeValue=10 />
     </div>
   </header>
 </template>
