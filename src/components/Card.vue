@@ -5,9 +5,13 @@
   const props = defineProps({
     number: String,
     label: String,
+    score: Number,
+    state: String,
+    status: String,
   })
 
   const emit = defineEmits(['resize-card', 'status-card'])
+
 
   function emiterResizeCard() {
     emit('resize-card', 'Перевернул')
@@ -22,7 +26,7 @@
 </script>
 
 <template>
-  <article class="card">
+  <article class="card" :data-score='score' :data-state='state' :data-status='status'>
     <div class="card__number">{{number}}</div>
     <div class="card__label">{{label}}</div>
     <div class="card__footer">
