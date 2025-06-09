@@ -8,7 +8,7 @@
 
   const valueCard = ref({
     word: 'unadmitted',
-    traslation: 'непризнанный',
+    translation: 'непризнанный',
     state: 'closed',
     status: '',
   })
