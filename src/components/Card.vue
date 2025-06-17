@@ -6,8 +6,8 @@
     number: String,
     label: String,
     score: Number,
-    state: String,
     status: String,
+    translation: String,
   })
 
   const emit = defineEmits(['resize-card', 'status-card'])
@@ -26,13 +26,16 @@
 </script>
 
 <template>
-  <article class="card" :data-score='score' :data-state='state' :data-status='status'>
+  <article class="card" :data-score='score'>
     <div class="card__number">{{number}}</div>
-    <div class="card__label">{{label}}</div>
+    <div v-if="props.status === 'pending'" class="card__label">{{label}}</div>
+    <div v-else class="card__label">{{translation}}</div>
+
     <div class="card__footer">
-      <div class="card__footer-resize" @click="emiterResizeCard()">Перевернуть</div>
-      <div class="card__footer-status">
-        <div class="card__footer-status-ok card__footer-status-icon" @click="emiterStatus('ok')">
+      <div v-if="props.status === 'pending'" class="card__footer-resize" @click="emiterResizeCard()">Перевернуть</div>
+      <div v-if="props.status === 'sucsess' || props.status === 'falied'" class="card__footer-resize" @click="emiterResizeCard()">Завершено</div>
+      <div v-else-if="props.status === 'pending-translate'" class="card__footer-status">
+        <div class="card__footer-status-ok card__footer-status-icon" @click="emiterStatus('sucsess')">
           <Ok />
         </div>
         <div class="card__footer-status-falid card__footer-status-icon" @click="emiterStatus('falied')">
@@ -40,6 +43,14 @@
         </div>
       </div>
     </div>
+
+    <div v-if="props.status === 'sucsess'" class="card__status-icon">
+      <Ok  />
+    </div>
+    <div v-if="props.status === 'falied'" class="card__status-icon">
+      <Falid />
+    </div>
+
   </article>
 </template>
 
@@ -103,6 +114,7 @@
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
+    text-align: center;
   }
 
   .card__footer-status {
@@ -118,6 +130,20 @@
 
   .card__footer-status-icon {
     display: flex;
+  }
+
+  .card__status-icon {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+  }
+
+  .card__status-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
 
