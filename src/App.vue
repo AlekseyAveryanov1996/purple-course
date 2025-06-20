@@ -35,16 +35,22 @@ const valueCard = ref(null
 
 async function getCards() {
   const response = await fetch('http://localhost:8080/api/random-words');
-  const data = await response.json();
-  valueCard.value = data.map(item => {
-    return {
-      word: item.word,
-      translation: item.translation,
-      status: 'pending',
-    }
-  })
+  if (response.status !== '200') {
+    valueCard.value = null;
+    return
+  } else {
+    const data = await response.json();
+    valueCard.value = data.map(item => {
+      return {
+        word: item.word,
+        translation: item.translation,
+        status: 'pending',
+      }
+    })
+  }
 
-  console.log(valueCard.value);
+
+
 
 }
 
@@ -60,9 +66,9 @@ async function getCards() {
 
   <div v-else class="pole-cards">
     <Card v-for='(card, index) in valueCard' :key='index' :number='(index <= 8) ? "0" + (index + 1) : (index + 1)' :label='card.word'
-    :status='card.status' :translation='card.translation' @resize-card='(data) => console.log(data)'
+    :status='card.status' :translation='card.translation' @resize-card='(data) => valueCard[index].status = data'
     :score="0"
-    @status-card='(data) => console.log(data)' />
+    @status-card='(data) => valueCard[index].status = data' />
 
   </div>
 

@@ -14,7 +14,7 @@
 
 
   function emiterResizeCard() {
-    emit('resize-card', 'Перевернул')
+    emit('resize-card', 'pending-translate')
   }
 
   function emiterStatus(status) {
