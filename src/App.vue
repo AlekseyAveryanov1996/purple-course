@@ -35,8 +35,9 @@ const valueCard = ref(null
 
 async function getCards() {
   const response = await fetch('http://localhost:8080/api/random-words');
-  if (response.status !== '200') {
+  if (response.status !== 200) {
     valueCard.value = null;
+    alert('Ошибка получения данных')
     return
   } else {
     const data = await response.json();
