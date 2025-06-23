@@ -2,34 +2,14 @@
 import Button from "/src/components/Button.vue";
 import Header from './components/Header.vue'
 import Card from './components/Card.vue'
-import { computed, onMounted, ref } from "vue";
+import {provide, ref } from "vue";
+import scoreValueProvide from './constants'
 
-const countValue = ref(1);
+const valueCard = ref(null)
 
-const valueCard = ref(null
-  // [
-  //   {
-  //     word: 'unadmitted',
-  //     translation: 'непризнанный',
-  //     status: 'pending',
-  //   },
-  //   {
-  //     word: 'armour-piercer',
-  //     translation: 'бронебойщик',
-  //     status: 'pending-translate',
-  //   },
-  //   {
-  //     word: 'stamen',
-  //     translation: 'тычинка',
-  //     status: 'sucsess',
-  //   },
-  //   {
-  //     word: 'vino',
-  //     translation: 'вино',
-  //     status: 'falied',
-  //   },
-  // ]
-)
+const scoreValue = ref(10);
+
+provide(scoreValueProvide, scoreValue)
 
 
 
@@ -42,6 +22,7 @@ async function getCards() {
       return
     } else {
       const data = await response.json();
+      scoreValue.value = 0;
       valueCard.value = data.map(item => {
         return {
           word: item.word,
@@ -53,10 +34,6 @@ async function getCards() {
   } catch {
     alert('В данный момент сервер не доступен')
   }
-
-
-
-
 
 }
 
@@ -70,12 +47,16 @@ async function getCards() {
     </Button>
   </main>
 
-  <div v-else class="pole-cards">
-    <Card v-for='(card, index) in valueCard' :key='index' :number='(index <= 8) ? "0" + (index + 1) : (index + 1)'
-      :label='card.word' :status='card.status' :translation='card.translation'
-      @resize-card='(data) => valueCard[index].status = data' :score="0"
-      @status-card='(data) => valueCard[index].status = data' />
-
+  <div v-else class="main-cards">
+    <div class="pole-cards">
+      <Card v-for='(card, index) in valueCard' :key='index' :number='(index <= 8) ? "0" + (index + 1) : (index + 1)'
+        :label='card.word' :status='card.status' :translation='card.translation'
+        @resize-card='(data) => valueCard[index].status = data'
+        @status-card='(data) => valueCard[index].status = data' />
+    </div>
+    <div class="main-cards__restart">
+      <Button @click='getCards()' class='start-game'>Начать занова</Button>
+    </div>
   </div>
 
 

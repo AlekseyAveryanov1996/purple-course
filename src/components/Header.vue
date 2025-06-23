@@ -6,7 +6,7 @@
   <header class="header">
     <div class="container header__container">
       <div class="header__logo">Запомни слово</div>
-      <Scope :scopeValue=10 />
+      <Scope />
     </div>
   </header>
 </template>
