@@ -54,7 +54,7 @@ async function getCards() {
         @status-card='(data) => valueCard[index].status = data' />
     </div>
     <div class="main-cards__restart">
-      <Button @click='getCards()' class='start-game'>Начать занова</Button>
+      <Button @click='getCards()' class='start-game'>Начать заново</Button>
     </div>
   </div>
 

@@ -21,11 +21,11 @@ import { inject } from 'vue'
   }
 
   function emiterStatus(status) {
-    if (status === 'sucsess') {
+    if (status === 'success') {
       valueScore.value += 10;
       alert('Правильно, 10 баллов в копилку')
     }
-    if (status === 'falied') {
+    if (status === 'failed') {
       valueScore.value -= 4;
       alert('Увы, вы потеряли 4 балла')
     }
@@ -44,21 +44,21 @@ import { inject } from 'vue'
 
     <div class="card__footer">
       <div v-if="props.status === 'pending'" class="card__footer-resize" @click="emiterResizeCard()">Перевернуть</div>
-      <div v-if="props.status === 'sucsess' || props.status === 'falied'" class="card__footer-resize">Завершено</div>
+      <div v-if="props.status === 'success' || props.status === 'failed'" class="card__footer-resize">Завершено</div>
       <div v-else-if="props.status === 'pending-translate'" class="card__footer-status">
-        <div class="card__footer-status-ok card__footer-status-icon" @click="emiterStatus('sucsess')">
+        <div class="card__footer-status-ok card__footer-status-icon" @click="emiterStatus('success')">
           <Ok />
         </div>
-        <div class="card__footer-status-falid card__footer-status-icon" @click="emiterStatus('falied')">
+        <div class="card__footer-status-falid card__footer-status-icon" @click="emiterStatus('failed')">
           <Falid />
         </div>
       </div>
     </div>
 
-    <div v-if="props.status === 'sucsess'" class="card__status-icon">
+    <div v-if="props.status === 'success'" class="card__status-icon">
       <Ok  />
     </div>
-    <div v-if="props.status === 'falied'" class="card__status-icon">
+    <div v-if="props.status === 'failed'" class="card__status-icon">
       <Falid />
     </div>
 
