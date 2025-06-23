@@ -7,7 +7,7 @@ import scoreValueProvide from './constants'
 
 const valueCard = ref(null)
 
-const scoreValue = ref(10);
+const scoreValue = ref(0);
 
 provide(scoreValueProvide, scoreValue)
 
@@ -22,7 +22,6 @@ async function getCards() {
       return
     } else {
       const data = await response.json();
-      scoreValue.value = 0;
       valueCard.value = data.map(item => {
         return {
           word: item.word,
