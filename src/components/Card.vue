@@ -1,16 +1,19 @@
 <script setup>
   import Ok from '../Icons/OkIcon.vue'
   import Falid from '../Icons/FalidIcon.vue'
+  import scoreValueProvide from '../constants'
+import { inject } from 'vue'
 
   const props = defineProps({
     number: String,
     label: String,
-    score: Number,
     status: String,
     translation: String,
   })
 
   const emit = defineEmits(['resize-card', 'status-card'])
+
+  const valueScore = inject(scoreValueProvide);
 
 
   function emiterResizeCard() {
@@ -18,6 +21,14 @@
   }
 
   function emiterStatus(status) {
+    if (status === 'sucsess') {
+      valueScore.value += 10;
+      alert('Правильно, 10 баллов в копилку')
+    }
+    if (status === 'falied') {
+      valueScore.value -= 4;
+      alert('Увы, вы потеряли 4 балла')
+    }
     emit('status-card', status)
   }
 
@@ -26,14 +37,14 @@
 </script>
 
 <template>
-  <article class="card" :data-score='score'>
+  <article class="card">
     <div class="card__number">{{number}}</div>
     <div v-if="props.status === 'pending'" class="card__label">{{label}}</div>
     <div v-else class="card__label">{{translation}}</div>
 
     <div class="card__footer">
       <div v-if="props.status === 'pending'" class="card__footer-resize" @click="emiterResizeCard()">Перевернуть</div>
-      <div v-if="props.status === 'sucsess' || props.status === 'falied'" class="card__footer-resize" @click="emiterResizeCard()">Завершено</div>
+      <div v-if="props.status === 'sucsess' || props.status === 'falied'" class="card__footer-resize">Завершено</div>
       <div v-else-if="props.status === 'pending-translate'" class="card__footer-status">
         <div class="card__footer-status-ok card__footer-status-icon" @click="emiterStatus('sucsess')">
           <Ok />

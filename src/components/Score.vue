@@ -1,16 +1,16 @@
 <script setup>
-  import LikeIcons from '../Icons/LikeIcons.vue'
+  import { inject } from 'vue';
+import LikeIcons from '../Icons/LikeIcons.vue'
+import scoreValueProvide from '../constants'
 
-  const props = defineProps({
-    scopeValue: Number,
-  })
+  const scoreValue = inject(scoreValueProvide);
 
 </script>
 
 <template>
   <div class="scope">
     <div class="scope__count">
-      {{ scopeValue }}
+      {{ scoreValue }}
     </div>
     <div class="scope__icon">
       <LikeIcons />
